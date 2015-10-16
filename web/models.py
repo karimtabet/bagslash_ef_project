@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import Column, String, DateTime, MetaData
+from sqlalchemy import Column, String, Integer, DateTime, MetaData
 from sqlalchemy.ext.declarative import declarative_base
 from uuid import uuid4
 
@@ -21,8 +21,9 @@ class Redirect(Base):
 
     __tablename__ = 'redirects'
 
-    from_url = Column(String, primary_key=True, index=True)
+    from_url = Column(String(23), primary_key=True, index=True)
     to_url = Column(String, nullable=False)
+    times_accessed = Column(Integer, nullable=False)
     date_created = Column(DateTime, nullable=False)
 
     def __init__(self, from_url, to_url):
