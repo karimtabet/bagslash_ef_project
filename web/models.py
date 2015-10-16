@@ -2,8 +2,6 @@ from datetime import datetime
 
 from sqlalchemy import Column, String, DateTime, MetaData
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.schema import Index
 from uuid import uuid4
 
 convention = {
@@ -23,8 +21,7 @@ class Redirect(Base):
 
     __tablename__ = 'redirects'
 
-    redirect_uuid = Column(UUID(as_uuid=True), primary_key=True)
-    from_url = Column(String, nullable=False)
+    from_url = Column(String, primary_key=True, index=True)
     to_url = Column(String, nullable=False)
     date_created = Column(DateTime, nullable=False)
 
