@@ -12,3 +12,4 @@ class BaseConfig(object):
         DB_USER, DB_PASS, DB_SERVICE, DB_PORT, DB_NAME
     )
     SECRET_KEY = os.environ['SECRET_KEY']
+    PRESERVE_CONTEXT_ON_EXCEPTION = False
