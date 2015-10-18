@@ -1,7 +1,7 @@
 from datetime import datetime
 from uuid import uuid4
 
-from flask import Flask
+from flask import Flask, redirect
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
@@ -13,6 +13,14 @@ app = Flask(__name__)
 app.config.from_object(BaseConfig)
 db = SQLAlchemy(app)
 admin = Admin(app, template_mode='bootstrap3')
+
+
+@app.route('/<custom_url>', methods=['GET'])
+def redirct(custom_url):
+    to_url = db.session.query(Redirect.to_url).filter(
+        Redirect.from_url == custom_url
+    ).one()
+    return redirect(to_url)
 
 
 class RedirectsView(ModelView):
