@@ -1,8 +1,5 @@
-from datetime import datetime
-
 from sqlalchemy import Column, String, Integer, DateTime, MetaData
 from sqlalchemy.ext.declarative import declarative_base
-from uuid import uuid4
 
 convention = {
     'ix': 'ix_%(column_0_label)s',
@@ -25,12 +22,6 @@ class Redirect(Base):
     to_url = Column(String, nullable=False)
     times_accessed = Column(Integer, nullable=False)
     date_created = Column(DateTime, nullable=False)
-
-    def __init__(self, from_url, to_url):
-        self.redirect_uuid = uuid4
-        self.from_url = from_url
-        self.to_url = to_url
-        self.date_posted = datetime.datetime.now()
 
     def __repr__(self):
         return '<Redirect from {from_url} to {to_url}>'.format(
