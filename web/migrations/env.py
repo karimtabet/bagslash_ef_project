@@ -14,7 +14,10 @@ fileConfig(config.config_file_name)
 # add your model's MetaData object here
 # for 'autogenerate' support
 # from myapp import mymodel
-from web.models import Base
+import os 
+import sys 
+sys.path.append(os.getcwd())
+from models import Base
 target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
