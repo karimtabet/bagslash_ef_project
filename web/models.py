@@ -1,5 +1,6 @@
 from sqlalchemy import Column, String, Integer, DateTime, MetaData
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.dialects.postgresql import UUID
 
 convention = {
     'ix': 'ix_%(column_0_label)s',
@@ -28,3 +29,20 @@ class Redirect(Base):
             from_url=self.from_url,
             to_url=self.to_url
         )
+
+
+class User(Base):
+    __tablename__ = 'users'
+
+    uuid = Column(UUID(as_uuid=True), primary_key=True)
+    name = Column(String, nullable=False)
+    oauth_token = Column(String, nullable=False)
+    oauth_secret = Column(String, nullable=False)
+
+    def __repr__(self):
+        return '<User {name}>'.format(name=self.name)
+
+    def __init__(self, name):
+        self.name = name
+        self.oauth_token = 'NA'
+        self.oauth_secret = 'NA'
