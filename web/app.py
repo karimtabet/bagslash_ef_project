@@ -34,7 +34,7 @@ def add_http_to_url(to_url):
     return to_url
 
 
-@app.route('/<custom_url>', methods=['GET'])
+@app.route('/to/<custom_url>', methods=['GET'])
 def redirct(custom_url):
     return redirect(get_redirect(custom_url))
 

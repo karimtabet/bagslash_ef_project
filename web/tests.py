@@ -58,10 +58,9 @@ class TestRedirects(TestCase):
             is_('http://www.example.com')
         )
 
-
     def test_successful_redirect(self):
         self.insert_redirect()
-        response = self.app.get('/test_url')
+        response = self.app.get('/to/test_url')
         assert_that(
             response.status_code,
             is_(302)
