@@ -135,6 +135,12 @@ def redirct(custom_url):
 
 
 class RedirectsView(ModelView):
+    def is_accessible(self):
+        return g.user is not None
+
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect(url_for('index', next=request.url))
+
     can_edit = False
     column_list = column_sortable_list = column_filters = (
         'from_url',
