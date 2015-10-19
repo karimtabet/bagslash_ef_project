@@ -6,7 +6,6 @@ from flask import (
     redirect,
     session,
     g,
-    render_template,
     url_for,
     request,
     flash
@@ -14,6 +13,7 @@ from flask import (
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
+from flask.ext.admin.model.template import macro
 from rauth.service import OAuth1Service
 from rauth.utils import parse_utf8_qsl
 
@@ -134,6 +134,7 @@ class RedirectsView(ModelView):
         return redirect(url_for('index', next=request.url))
 
     can_edit = False
+    list_template = "list_redirects.html"
     column_list = column_sortable_list = column_filters = (
         'from_url',
         'to_url',
@@ -143,6 +144,10 @@ class RedirectsView(ModelView):
     )
     column_searchable_list = ('from_url', 'to_url')
     column_labels = {"user.name": "Created By"}
+    column_formatters = {
+        'from_url': macro("from_url"),
+        'to_url': macro('to_url')
+    }
     form_columns = ['from_url', 'to_url']
     form_args = dict(
                 from_url=dict(default=get_random_string())
