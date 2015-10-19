@@ -13,3 +13,7 @@ class BaseConfig(object):
     )
     SECRET_KEY = os.environ['SECRET_KEY']
     PRESERVE_CONTEXT_ON_EXCEPTION = False
+    TWITTER_CONSUMER_KEY = 'bxoaJl4m7TsaBxBpo7oVywp2h'
+    TWITTER_CONSUMER_SECRET = (
+        'uOJaZhdT7fE8VhMNq8ZPafdMP4nbnN2ydc6P9USUX0PPLeMsO1'
+    )
