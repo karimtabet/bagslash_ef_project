@@ -112,15 +112,18 @@ def authorized():
 
 
 def get_redirect(custom_url):
-    to_url = db.session.query(Redirect.to_url).filter(
+    redirect = db.session.query(Redirect).filter(
         Redirect.from_url == custom_url
-    ).one()
-    return to_url[0]
+    ).first()
+    redirect.times_accessed += 1
+    db.session.add(redirect)
+    db.session.commit()
+    return redirect
 
 
 @app.route('/to/<custom_url>', methods=['GET'])
 def redirct(custom_url):
-    return redirect(get_redirect(custom_url))
+    return redirect(get_redirect(custom_url).to_url)
 
 
 class RedirectsView(ModelView):

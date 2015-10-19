@@ -39,8 +39,15 @@ class TestRedirects(TestCase):
     def test_get_redirect(self):
         self.insert_redirect()
         assert_that(
-            get_redirect('test_url'),
+            get_redirect('test_url').to_url,
             is_('https://www.example.com')
+        )
+
+    def test_increment_times_accessed(self):
+        self.insert_redirect()
+        assert_that(
+            get_redirect('test_url').times_accessed,
+            is_(1)
         )
 
     def test_get_random_string(self):
