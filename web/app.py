@@ -15,12 +15,16 @@ db = SQLAlchemy(app)
 admin = Admin(app, template_mode='bootstrap3')
 
 
-@app.route('/<custom_url>', methods=['GET'])
-def redirct(custom_url):
+def get_redirect(custom_url):
     to_url = db.session.query(Redirect.to_url).filter(
         Redirect.from_url == custom_url
     ).one()
-    return redirect(to_url[0])
+    return to_url[0]
+
+
+@app.route('/<custom_url>', methods=['GET'])
+def redirct(custom_url):
+    return redirect(get_redirect(custom_url))
 
 
 class RedirectsView(ModelView):
