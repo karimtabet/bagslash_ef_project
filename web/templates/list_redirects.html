@@ -1,0 +1,9 @@
+{% extends 'admin/model/list.html' %}
+
+{% macro from_url(model, column) %}
+<a href="{{ request.url_root }}to/{{ model.from_url }}" >{{ request.url_root }}to/{{ model.from_url }}"</a>
+{% endmacro %}
+
+{% macro to_url(model, column) %}
+<a href="{{ model.to_url }}" >{{ model.to_url }}</a>
+{% endmacro %}
