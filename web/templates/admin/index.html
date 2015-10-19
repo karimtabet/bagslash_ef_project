@@ -1,0 +1,15 @@
+{% extends 'admin/master.html' %}
+{% block body %}
+{{ super() }}
+<div>
+    <h1>Bagslash URL Redirect</h1>
+    <h3>An Education First Programming Test<h3>
+    <!doctype html>
+    {% if not g.user %}
+    {% for message in get_flashed_messages() %}
+    {{ message }}
+    {% endfor %}
+    <a href ="{{ url_for('login') }}">Login with Twitter</a>
+    {% endif %}
+<div>
+{% endblock body %}
