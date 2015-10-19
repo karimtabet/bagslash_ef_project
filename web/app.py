@@ -1,5 +1,7 @@
 from datetime import datetime
 from uuid import uuid4
+import string
+import random
 
 from flask import Flask, redirect
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -20,6 +22,10 @@ def get_redirect(custom_url):
         Redirect.from_url == custom_url
     ).one()
     return to_url[0]
+
+
+def get_random_string(size=23, chars=string.ascii_letters + string.digits):
+    return ''.join(random.choice(chars) for _ in range(size))
 
 
 @app.route('/<custom_url>', methods=['GET'])
