@@ -3,7 +3,13 @@ from datetime import datetime
 from flask.ext.testing import TestCase
 from hamcrest import assert_that, is_, has_length
 
-from app import app, db, get_redirect, get_random_string
+from app import (
+    app,
+    db,
+    get_redirect,
+    get_random_string,
+    add_http_to_url
+)
 from models import Base, Redirect
 
 
@@ -39,6 +45,19 @@ class TestRedirects(TestCase):
             get_random_string(),
             has_length(23)
         )
+
+    def test_add_http_to_url(self):
+        assert_that(
+            add_http_to_url('www.example.com'),
+            is_('http://www.example.com')
+        )
+
+    def test_add_http_to_url_already_containing_http(self):
+        assert_that(
+            add_http_to_url('http://www.example.com'),
+            is_('http://www.example.com')
+        )
+
 
     def test_successful_redirect(self):
         self.insert_redirect()
