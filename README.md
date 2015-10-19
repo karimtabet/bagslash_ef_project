@@ -134,8 +134,10 @@ bagslash-prod
 
 Due to the slim time frame, the project had much of its scope cut. With more time, the following work remains:
 
+ - Fix Twitter callback on prod
  - Load testing. This would be done using Locust.io and would be set up to hit all endpoints with varying frequency.
  - Auth with more than Twitter (ie Facebook, Google+ and Email)
  - Configure Postgres roles
  - Run tests and migrations as part of Docker build.
  - Higher test coverage, areas include Redirects admin view and authentication
+ - Refactor and rearrange code.
