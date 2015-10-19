@@ -3,14 +3,9 @@ from datetime import datetime
 from flask.ext.testing import TestCase
 from hamcrest import assert_that, is_, has_length
 
-from app import (
-    app,
-    db,
-    get_redirect,
-    get_random_string,
-    add_http_to_url
-)
+from app import app, db, get_redirect
 from models import Base, Redirect
+from utils import get_random_string, add_http_to_url
 
 
 class TestRedirects(TestCase):
