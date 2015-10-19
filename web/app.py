@@ -135,9 +135,11 @@ class RedirectsView(ModelView):
         'from_url',
         'to_url',
         'times_accessed',
+        'user.name',
         'date_created'
     )
     column_searchable_list = ('from_url', 'to_url')
+    column_labels = {"user.name": "Created By"}
     form_columns = ['from_url', 'to_url']
     form_args = dict(
                 from_url=dict(default=get_random_string())
@@ -148,6 +150,7 @@ class RedirectsView(ModelView):
         model.from_url = form.from_url.data
         model.to_url = add_http_to_url(form.to_url.data)
         model.times_accessed = 0
+        model.created_by = session['user_uuid']
         model.date_created = datetime.utcnow()
 
 admin.add_view(RedirectsView(Redirect, db.session, endpoint='redirects_view'))
