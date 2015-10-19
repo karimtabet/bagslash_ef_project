@@ -1,6 +1,6 @@
 # Bagslash URL Redirect - For Education First
 
-A programming challend for Education First.
+A programming challenge for Education First.
 The app can be viewed at http://bagslash.com (This is an unused domain name of mine that I have repurposed for this project).
 The project can be built either using a virtualenv or docker
 
@@ -18,7 +18,7 @@ The project can be built either using a virtualenv or docker
 First, create and activate an env:
 ```
 virtualenv env
- source env/bin/activate
+source env/bin/activate
 ```
 
 The project configuration relies on environment variables, it is therefore necessary to set the following variables within your env:
