@@ -24,7 +24,7 @@ def get_redirect(custom_url):
     return to_url[0]
 
 
-def get_random_string(size=23, chars=string.ascii_letters + string.digits):
+def get_random_string(size=23, chars=string.ascii_lowercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
 
 
@@ -43,6 +43,9 @@ class RedirectsView(ModelView):
     )
     column_searchable_list = ('from_url', 'to_url')
     form_columns = ['from_url', 'to_url']
+    form_args = dict(
+                from_url=dict(default=get_random_string())
+            )
 
     def on_model_change(self, form, model):
         model.redirect_uuid = uuid4
