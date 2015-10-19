@@ -1,6 +1,7 @@
 from uuid import uuid4
 
-from sqlalchemy import Column, String, Integer, DateTime, MetaData
+from sqlalchemy import Column, String, Integer, DateTime, ForeignKey, MetaData
+from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.dialects.postgresql import UUID
 
@@ -25,6 +26,9 @@ class Redirect(Base):
     to_url = Column(String, nullable=False)
     times_accessed = Column(Integer, nullable=False)
     date_created = Column(DateTime, nullable=False)
+    created_by = Column(ForeignKey("users.uuid"), nullable=False)
+
+    user = relationship("User", backref="redirects")
 
     def __repr__(self):
         return '<Redirect from {from_url} to {to_url}>'.format(
@@ -36,7 +40,7 @@ class Redirect(Base):
 class User(Base):
     __tablename__ = 'users'
 
-    uuid = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
+    uuid = Column(UUID(as_uuid=True), primary_key=True)
     name = Column(String, nullable=False)
     oauth_token = Column(String, nullable=False)
     oauth_secret = Column(String, nullable=False)
@@ -45,6 +49,7 @@ class User(Base):
         return '<User {name}>'.format(name=self.name)
 
     def __init__(self, name):
+        self.uuid = uuid4()
         self.name = name
         self.oauth_token = 'NA'
         self.oauth_secret = 'NA'
