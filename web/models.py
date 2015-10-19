@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from sqlalchemy import Column, String, Integer, DateTime, MetaData
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.dialects.postgresql import UUID
@@ -34,7 +36,7 @@ class Redirect(Base):
 class User(Base):
     __tablename__ = 'users'
 
-    uuid = Column(UUID(as_uuid=True), primary_key=True)
+    uuid = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
     name = Column(String, nullable=False)
     oauth_token = Column(String, nullable=False)
     oauth_secret = Column(String, nullable=False)
