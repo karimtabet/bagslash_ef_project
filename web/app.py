@@ -55,9 +55,9 @@ def after_request(response):
 @app.route('/')
 def index():
     if g.user:
-        return redirect('/admin')
+        return redirect('/admin/redirects_view')
     else:
-        return render_template('login.html')
+        return redirect('/admin')
 
 
 @app.route('/twitter/login')
@@ -156,7 +156,12 @@ class RedirectsView(ModelView):
         model.created_by = session['user_uuid']
         model.date_created = datetime.utcnow()
 
-admin.add_view(RedirectsView(Redirect, db.session, endpoint='redirects_view'))
+admin.add_view(RedirectsView(
+    Redirect,
+    db.session,
+    name='Redirects',
+    endpoint='redirects_view')
+)
 
 if __name__ == '__main__':
     app.run()
