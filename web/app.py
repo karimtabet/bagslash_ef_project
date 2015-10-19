@@ -20,7 +20,7 @@ def redirct(custom_url):
     to_url = db.session.query(Redirect.to_url).filter(
         Redirect.from_url == custom_url
     ).one()
-    return redirect(to_url)
+    return redirect(to_url[0])
 
 
 class RedirectsView(ModelView):
