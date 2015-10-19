@@ -1,7 +1,5 @@
 from datetime import datetime
 from uuid import uuid4
-import string
-import random
 
 from flask import (
     Flask,
@@ -20,6 +18,7 @@ from rauth.service import OAuth1Service
 from rauth.utils import parse_utf8_qsl
 
 from models import Redirect, User
+from utils import get_random_string, add_http_to_url
 from config import BaseConfig
 
 app = Flask(__name__)
@@ -119,16 +118,6 @@ def get_redirect(custom_url):
     return to_url[0]
 
 
-def get_random_string(size=23, chars=string.ascii_lowercase + string.digits):
-    return ''.join(random.choice(chars) for _ in range(size))
-
-
-def add_http_to_url(to_url):
-    if to_url.find("http://") != 0 and to_url.find("https://") != 0:
-        to_url = "http://" + to_url
-    return to_url
-
-
 @app.route('/to/<custom_url>', methods=['GET'])
 def redirct(custom_url):
     return redirect(get_redirect(custom_url))
@@ -157,7 +146,7 @@ class RedirectsView(ModelView):
     def on_model_change(self, form, model):
         model.redirect_uuid = uuid4
         model.from_url = form.from_url.data
-        model.to_url = form.to_url.data
+        model.to_url = add_http_to_url(form.to_url.data)
         model.times_accessed = 0
         model.date_created = datetime.utcnow()
 
